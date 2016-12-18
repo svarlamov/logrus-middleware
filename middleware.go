@@ -64,7 +64,8 @@ func (h *Handler) Header() http.Header {
 func (h *Handler) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 	start := time.Now()
 
-	h.handler.ServeHTTP(rw, r)
+	h.ResponseWriter = rw
+	h.handler.ServeHTTP(h, r)
 
 	latency := time.Since(start)
 
